@@ -8,6 +8,8 @@ class AuthProvider extends ChangeNotifier {
   UserModel? userModel;
   bool? isEmailVerified;
   bool loggedIn = false;
+  bool isLoading = false;
+  String? errorCode;
 
   AuthProvider() {
     checkSession();
@@ -26,6 +28,7 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> login(String email, String password) async {
     userModel = UserModel(email: email);
+    isLoading = true;
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: userModel!.email!,
@@ -57,6 +60,7 @@ class AuthProvider extends ChangeNotifier {
       }
       dev.log('${e.code}');
     }
+    isLoading = false;
     notifyListeners();
   }
 
@@ -85,11 +89,14 @@ class AuthProvider extends ChangeNotifier {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         dev.log('The password provided is too weak.');
+        errorCode = 'weak-password';
       } else if (e.code == 'email-already-in-use') {
         dev.log('The account already exists for that email.');
+        errorCode = 'email-already-in-use';
       }
     } catch (e) {
       dev.log('$e');
+      errorCode = e as String;
     }
     notifyListeners();
   }
