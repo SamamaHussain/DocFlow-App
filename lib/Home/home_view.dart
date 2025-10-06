@@ -53,21 +53,21 @@ class _HomeViewState extends State<HomeView> {
         ? const Center(child: CircularProgressIndicator())
         : Scaffold(
             backgroundColor: Colors.transparent,
-            body: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color.fromARGB(255, 245, 247, 255), // Deep blue
-                    Color.fromARGB(255, 235, 255, 252), // Purple
-                    Color.fromARGB(255, 254, 241, 255), // Pink
-                    Color.fromARGB(255, 255, 247, 232), // Reddish-pink
-                  ],
-                  stops: [0.0, 0.3, 0.6, 1.0],
+            body: SafeArea(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color.fromARGB(255, 245, 247, 255), // Deep blue
+                      Color.fromARGB(255, 235, 255, 252), // Purple
+                      Color.fromARGB(255, 254, 241, 255), // Pink
+                      Color.fromARGB(255, 255, 247, 232), // Reddish-pink
+                    ],
+                    stops: [0.0, 0.3, 0.6, 1.0],
+                  ),
                 ),
-              ),
-              child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(

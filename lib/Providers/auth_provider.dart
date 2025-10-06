@@ -196,7 +196,37 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> sendVerifyEmail() async {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    await currentUser?.sendEmailVerification();
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+        dev.log('Email verification sent successfully!');
+      } else if (user?.emailVerified ?? false) {
+        print('Email is already verified.');
+      } else {
+        dev.log('No user is currently signed in.');
+      }
+    } on FirebaseAuthException catch (e) {
+      dev.log('Error sending email verification: ${e.message}');
+    } catch (e) {
+      dev.log('Error sending email verification: $e');
+    }
+  }
+
+  Future<void> resetPasswordEmail(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      print('Password reset email sent successfully!');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'invalid-email') {
+        print('Invalid email address.');
+      } else {
+        print('Error sending password reset email: ${e.message}');
+      }
+    } catch (e) {
+      print('Error sending password reset email: $e');
+    }
   }
 }

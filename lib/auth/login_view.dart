@@ -44,170 +44,172 @@ class _LoginViewState extends State<LoginView>
     final authProvider = Provider.of<AuthProvider>(context, listen: true);
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Container(
-        // <-- ADD THIS CONTAINER FOR GRADIENT
-        width: double.infinity, // Full width
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft, // Gradient starts from top-left
-            end: Alignment.bottomRight, // Ends at bottom-right
-            colors: [
-              Color.fromARGB(255, 245, 247, 255), // Deep blue
-              Color.fromARGB(255, 235, 255, 252), // Purple
-              Color.fromARGB(255, 254, 241, 255), // Pink
-              Color.fromARGB(255, 255, 247, 232), // Reddish-pink
-            ],
-            stops: [0.0, 0.3, 0.7, 1.0], // Optional: Controls color intensity
+      body: SafeArea(
+        child: Container(
+          // <-- ADD THIS CONTAINER FOR GRADIENT
+          width: double.infinity, // Full width
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft, // Gradient starts from top-left
+              end: Alignment.bottomRight, // Ends at bottom-right
+              colors: [
+                Color.fromARGB(255, 245, 247, 255), // Deep blue
+                Color.fromARGB(255, 235, 255, 252), // Purple
+                Color.fromARGB(255, 254, 241, 255), // Pink
+                Color.fromARGB(255, 255, 247, 232), // Reddish-pink
+              ],
+              stops: [0.0, 0.3, 0.7, 1.0], // Optional: Controls color intensity
+            ),
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(23, 25, 23, 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Doc ',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Color(0xFFB0A8FF),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          'Flow',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(23, 25, 23, 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Doc ',
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  const Text(
-                    'Log in to share and collaborate!',
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      height: 1.2,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    'manage all your documents with ease.',
-                    style: TextStyle(
-                      fontSize: 17,
-                      height: 1.2,
-                      color: greyColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: purpleColor.withOpacity(0.2),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                  ),
-                ),
-                padding: const EdgeInsets.fromLTRB(23, 30, 23, 25),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 55,
-                      // Same padding as original
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: purpleColor),
-                        color: Colors.grey.shade200.withOpacity(
-                          0.3,
-                        ), // Background for the whole bar
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: TabBar(
-                        dividerColor: Colors.transparent,
-                        indicatorColor: Colors.transparent,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        controller: _tabController,
-                        indicator: BoxDecoration(
-                          color: purpleColor,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        labelColor: Colors.black, // Active tab text color
-                        unselectedLabelColor:
-                            Colors.black, // Inactive tab text color
-                        labelStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        unselectedLabelStyle: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                        ),
-                        overlayColor: MaterialStateProperty.all(
-                          Colors.transparent,
-                        ),
-                        indicatorPadding: const EdgeInsets.symmetric(
-                          vertical: 4,
-                          horizontal: 4,
-                        ),
-                        tabs: const [
-                          Tab(text: 'Login'),
-                          Tab(text: 'SignUp'),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Expanded(
-                      child: TabBarView(
-                        physics: NeverScrollableScrollPhysics(),
-                        controller: _tabController,
-                        children: [
-                          _buildLoginForm(
-                            _emailController,
-                            _passwordController,
-                            authProvider,
-                            context,
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 0,
                           ),
-                          _buildSignUpForm(
-                            _firstnameController,
-                            _lastnameController,
-                            _emailController,
-                            _passwordController,
-                            authProvider,
-                            context,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFB0A8FF),
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        ],
+                          child: Text(
+                            'Flow',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    const Text(
+                      'Log in to share and collaborate!',
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        height: 1.2,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'manage all your documents with ease.',
+                      style: TextStyle(
+                        fontSize: 17,
+                        height: 1.2,
+                        color: greyColor,
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
-        ), // <-- YOUR EXISTING CONTENT HERE
+              SizedBox(height: 20),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: purpleColor.withOpacity(0.2),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                    ),
+                  ),
+                  padding: const EdgeInsets.fromLTRB(23, 30, 23, 25),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 55,
+                        // Same padding as original
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1, color: purpleColor),
+                          color: Colors.grey.shade200.withOpacity(
+                            0.3,
+                          ), // Background for the whole bar
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        child: TabBar(
+                          dividerColor: Colors.transparent,
+                          indicatorColor: Colors.transparent,
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          controller: _tabController,
+                          indicator: BoxDecoration(
+                            color: purpleColor,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          labelColor: Colors.black, // Active tab text color
+                          unselectedLabelColor:
+                              Colors.black, // Inactive tab text color
+                          labelStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          unselectedLabelStyle: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                          overlayColor: MaterialStateProperty.all(
+                            Colors.transparent,
+                          ),
+                          indicatorPadding: const EdgeInsets.symmetric(
+                            vertical: 4,
+                            horizontal: 4,
+                          ),
+                          tabs: const [
+                            Tab(text: 'Login'),
+                            Tab(text: 'SignUp'),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Expanded(
+                        child: TabBarView(
+                          physics: NeverScrollableScrollPhysics(),
+                          controller: _tabController,
+                          children: [
+                            _buildLoginForm(
+                              _emailController,
+                              _passwordController,
+                              authProvider,
+                              context,
+                            ),
+                            _buildSignUpForm(
+                              _firstnameController,
+                              _lastnameController,
+                              _emailController,
+                              _passwordController,
+                              authProvider,
+                              context,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ), // <-- YOUR EXISTING CONTENT HERE
+        ),
       ),
     );
   }
@@ -268,12 +270,32 @@ Widget _buildLoginForm(
         SizedBox(height: 15),
         Align(
           alignment: Alignment.centerRight,
-          child: const Text(
-            'Forgot your Password?  ',
-            style: TextStyle(fontSize: 15),
+          child: TextButton(
+            onPressed: () {
+              if (emailController.text.isEmpty) {
+                showMySnackBar(context, 'Please enter an email first.');
+              } else {
+                authProvider.resetPasswordEmail(emailController.text).then((
+                  value,
+                ) {
+                  showMySnackBar(
+                    context,
+                    'A password reset email is sent to your inbox.',
+                  );
+                  emailController.clear();
+                });
+              }
+            },
+            child: const Text(
+              'Forgot your Password?  ',
+              style: TextStyle(
+                fontSize: 14,
+                color: Color.fromARGB(255, 203, 77, 68),
+              ),
+            ),
           ),
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 23),
         Center(
           child: GestureDetector(
             onTap: () async {
